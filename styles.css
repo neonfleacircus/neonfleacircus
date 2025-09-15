@@ -1,0 +1,266 @@
+/* ---------- Reset & base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+:root {
+  --accent: #ffdca8;
+  --tint-rgb: 40,40,40;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('fonts/Poppins-Regular.ttf') format('truetype'),
+       url('fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* Will used unstyled text until font is fully loaded*/
+}
+@font-face {
+  font-family: 'Barrio';
+  src: url('fonts/Barrio-Regular.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: block; /* This prevents a flash of unstyled text */
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: #fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Constrain content */
+.page.limited {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem 0;
+  position: relative;
+  z-index: 2; /* place above the fixed banner */
+}
+
+/* ---------- INDEX ---------- */
+.index-page .hero { position: relative; }
+.index-page .hero-image {
+  width: 100%;
+  display: block;
+/*border-radius: 0.6rem;*/
+  margin-top: 1rem;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+}
+.band-name.overlay {
+  position: absolute;
+  left: 50%;
+  bottom: 1%;
+  transform: translateX(-50%);
+  font-family: 'Barrio', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 12vw, 5rem);
+  text-align: center;
+  padding: 0;
+  border-radius: 0.5rem;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.6);
+}
+.index-page h2 {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.index-page h3 {
+  font-family: 'Poppins';
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+}
+
+/* Album grid & cards */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0 1rem;
+}
+.album-card {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  /*border-radius: 1.1rem; */
+  background: rgba(255,255,255,0.06);
+  padding: 1rem;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
+}
+.album-card img {
+  width: 100%;
+  border-radius: 0.9rem;
+  display: block;
+}
+.album-card h2 {
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.album-card h2 span { color: #bfbfbf; font-weight: 400; }
+.album-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+}
+
+/* Official website button */
+.official-link { text-align: center; margin: 1.2rem 0 3rem; }
+.official-link a {
+  display: inline-block;
+  padding: 0.7rem 1.6rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.official-link a:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.16);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.38);
+}
+
+/* ---------- ALBUM PAGES ---------- */
+/* page background gradient under content (fixed) */
+.album-page {
+  background: linear-gradient(to bottom, rgba(var(--tint-rgb), 0.18) 0%, rgba(0,0,0,1) 70%) fixed;
+}
+
+/* Fixed banner: blurred, tinted via theme vars */
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px) brightness(0.58);
+  z-index: 0;
+  transform: translateZ(0);
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+	  135deg, #d9b36a 0%, #2c2c1e 100%
+      /*rgba(var(--tint-rgb), 0) 6%,
+      rgba(var(--tint-rgb), 0.28) 36%,
+      rgba(var(--tint-rgb), 0.58) 66%,
+      rgba(0,0,0,0.92) 100%*/
+    );
+
+  pointer-events: none;
+}
+
+/* Make sure the page content sits above the banner */
+.album-page .page.limited { z-index: 3; }
+
+/* album hero (content floats above the banner) */
+.album-hero {
+  position: relative;
+  text-align: center;
+  padding-top: 40px; /* Add this line to push content down below the banner */
+  padding-bottom: 2rem;
+  z-index: 3;
+}
+.album-art {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 6;
+}
+.album-hero h1 {
+  margin-top: 1rem;
+  font-family: 'Barrio', sans-serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+}
+.album-hero h1 span { color: #cfcfcf; font-weight: 400; font-size: 0.9em; }
+
+/* streaming links */
+.streaming { text-align: center; padding: 0 0 3rem; }
+.streaming h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+}
+.streaming ul { list-style: none; padding: 0; margin: 0; }
+.streaming li { margin: 0.5rem 0; }
+.streaming a {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.streaming a:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.16);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+/* ---------- BACK SQUIRCLE (top-left) ---------- */
+.back-squircle {
+  position: fixed;
+  top: 14px;
+  /* Clamp so it stays inside the max-width content column */
+  left: max(1rem, calc((100% - 960px) / 2 + 1rem));
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  color: var(--accent);
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+}
+.back-squircle:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  color: #9a9a9a;
+  box-sizing: border-box;
+}
+
+/* ---------- THEME TINTS (use album colors) ---------- */
+.juggler-theme {
+  --tint-rgb: 251, 47, 11; /* warm, vivid red/orange */
+  --accent: #ffd0b8;
+}
+.fistful-theme {
+  --tint-rgb: 61, 85, 62; /* deep teal/green */
+  --accent: #f2e2b8;
+}
+
+@media (max-width: 768px) {
+  .band-name.overlay {
+    font-size: 1.75rem; /* Or a smaller value that works for you */
+    padding: 0; /* Adjust padding to create more space */
+  }
+}
